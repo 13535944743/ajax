@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            outline: none;
+        }
+    </style>
+
+    <script src="js/jquery.min.js"></script>
+
+    <script>
+        window.addEventListener("load", (e) => {
+            const keyword = document.getElementById("keyword");
+            const btn = document.getElementById("btn");
+            const myhead = document.getElementsByTagName("head")[0];
+            const ul = document.querySelector("ul");
+
+            let flag = false;
+
+            btn.addEventListener("click", () => {
+                $(ul).empty();
+                console.log(1);
+
+                window["sug"] = (data) => {
+                    console.log(2);
+                    for (let i = 0; i < data.s.length; i++) {
+                        const li = document.createElement("li");
+                        li.innerHTML = data.s[i];
+                        ul.appendChild(li);
+                    }
+                };
+                console.log(3);
+
+                if (flag) {
+                    myhead.removeChild(myhead.children[myhead.children.length - 1]);
+                }
+
+                const script = document.createElement("script");
+                script.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + keyword
+                    .value +
+                    "&cb=sug";
+                flag = true;
+                myhead.appendChild(script);
+                console.log(4); //指定的callback函数会在事件监听函数执行完时调用
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <input type="text" id="keyword" placeholder="请输入关键词">
+    <input type="button" id="btn" value="查询">
+    <ul>
+    </ul>
+</body>
+
+</html>

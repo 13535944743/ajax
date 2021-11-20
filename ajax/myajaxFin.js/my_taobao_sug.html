@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            outline: none;
+        }
+    </style>
+
+    <script src="jquery.min.js"></script>
+    <script src="myajax.js"></script>
+
+    <script>
+        window.addEventListener("load", (e) => {
+            const keyword = document.getElementById("keyword");
+            const btn = document.getElementById("btn");
+            const myhead = document.getElementsByTagName("head")[0];
+            const ul = document.querySelector("ul");
+
+            btn.addEventListener("click", () => {
+                $(ul).empty();
+
+                myajax({
+                    url: "https://suggest.taobao.com/sug",
+                    data: {
+                        q: keyword.value
+                    },
+                    success: (data) => {
+                        for (let i = 0; i < data.result.length; i++) {
+                            const li = document.createElement("li");
+                            li.innerHTML = data.result[i][0];
+                            ul.appendChild(li);
+                        }
+                    },
+                    dataType: "jsonp"
+                });
+
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <input type="text" id="keyword" placeholder="请输入关键词">
+    <input type="button" id="btn" value="查询">
+    <ul>
+    </ul>
+</body>
+
+</html>

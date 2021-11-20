@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="template.js"></script>
+    <script type="text/html" id="list">
+        {{if isAdmin}}
+        <h1>{{title}}</h1>
+        <!-- <h2>一共有{{list.length}}条数据</h2> -->
+        <h2>一共有{{count}}条数据</h2>
+        <ul>
+            {{each list as value i}}
+            <li>索引{{i+1}}: {{value}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
+
+        {{if !isAdmin}}
+        <h1>没有任何信息</h1>
+        {{/if}}
+    </script>
+
+    <script type="text/javascript">
+        window.addEventListener("load", () => {
+            const data = {
+                title: "条件判断基本例子",
+                isAdmin: true,
+                list: ["文艺", "博客", "电影"]
+            };
+            data.count = data.list.length;
+
+            const html = template("list", data);
+            console.log(html);
+            document.getElementById("content").innerHTML = html;
+        });
+    </script>
+</head>
+
+<body>
+    <div id="content">
+    </div>
+</body>
+
+</html>

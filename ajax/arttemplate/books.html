@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="template.js"></script>
+    <script type="text/html" id="book">
+        <h1>{{title}}</h1>
+        {{each books as value}}
+        <div>{{value}}</div>
+        {{/each}}
+    </script>
+
+    <script type="text/javascript">
+        window.addEventListener("load", () => {
+            const data = {
+                title: "四大名著",
+                books: ["三国演义", "水浒传", "西游记", "红楼梦"]
+            };
+
+            const html = template("book", data);
+
+            document.querySelector(".container").innerHTML = html;
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>标题</h1>
+        <div>书名1</div>
+        <div>书名2</div>
+        <div>书名3</div>
+    </div>
+</body>
+
+</html>

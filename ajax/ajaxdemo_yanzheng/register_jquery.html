@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册界面</title>
+    <style>
+        div span:nth-of-type(1) {
+            display: inline-block;
+            width: 80px;
+        }
+
+        input {
+            outline: none;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        window.addEventListener("load", () => {
+            const username = document.getElementById("username");
+            const email = document.getElementById("email");
+            const phone = document.getElementById("phone");
+            const usernameResult = document.getElementById("username_result");
+            const emailResult = document.getElementById("email_result");
+            const phoneResult = document.getElementById("phone_result");
+
+            username.addEventListener("blur", () => {
+                let usernameValue = username.value;
+
+                const type = "get";
+                const url = "./server/checkUsername.php";
+                const params = "uname=" + usernameValue;
+                const dataType = "text";
+
+                $.ajax({
+                    url: url,
+                    // type: type,
+                    data: {
+                        uname: usernameValue
+                    },
+                    dataType: dataType,
+                    async: false,
+                    success: (result) => {
+                        if (result == "ok") {
+                            usernameResult.innerHTML = "用户名可以使用";
+                        } else {
+                            usernameResult.innerHTML = "用户名已经被注册";
+                        }
+                    }
+                });
+
+                $.get(url, {
+                    uname: usernameValue
+                }, (result) => {
+                    console.log(result);
+                })
+            });
+
+            email.addEventListener("blur", () => {
+                const type = "post";
+                const url = "./server/checkEmail.php";
+                const params = "e=" + email.value;
+                const dataType = "text";
+
+                $.post(url, {
+                    e: email.value
+                }, (result) => {
+                    console.log(result);
+                });
+                // myajax(type, url, params, dataType, (result) => {
+                //     if (result == 0) {
+                //         emailResult.innerHTML = "邮箱可用";
+                //     } else {
+                //         emailResult.innerHTML = "邮箱已经被注册";
+                //     }
+                // }, true);
+            });
+
+            phone.addEventListener("blur", () => {
+                const type = "post";
+                const url = "./server/checkPhone.php";
+                const params = "phonenumber=" + phone.value;
+                const dataType = "json"
+
+                $.post(url, {
+                    phonenumber: phone.value
+                }, (result) => {
+                    console.log(result);
+                }, );
+                // myajax(type, url, params, dataType, (result) => {
+                //     if (result.status === 0) {
+                //         phoneResult.innerHTML = result.message.tips + " " + result.message
+                //             .phonefrom;
+                //     } else {
+                //         phoneResult.innerHTML = result.message;
+                //     }
+                // }, true);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h2>注册界面</h2>
+    <form action="">
+        <div>
+            <span>用户名:</span>
+            <input type="text" id="username">
+            <span id="username_result"></span>
+        </div>
+        <div>
+            <span>邮箱:</span>
+            <input type="text" name="" id="email">
+            <span id="email_result"></span>
+        </div>
+        <div>
+            <span>电话:</span>
+            <input type="text" id="phone">
+            <span id="phone_result"></span>
+        </div>
+    </form>
+</body>
+
+</html>

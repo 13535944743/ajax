@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        span {
+            display: inline-block;
+            width: 80px;
+        }
+
+        /* body span:nth-of-type(2) {
+            width: 200px;
+        } */
+
+        span#result {
+            width: 200px;
+        }
+    </style>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const username = document.getElementById("username");
+            const btn = document.getElementsByClassName("btn")[0];
+
+            btn.addEventListener("click", () => {
+
+                let xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP"); //兼容IE6 
+                }
+                xhr.open("get", "check.php?username=" + username.value, true);
+                xhr.send(null); //执行发送，使用get请求，所以参数为null
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            let result = xhr.responseText;
+                            document.getElementById("result").innerHTML = result;
+                        }
+                    }
+                };
+
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <h2>注册</h2>
+    <form action="check.php" method="get">
+        <span>用户名:</span>
+        <input type="text" name="username" id="username">
+        <input type="button" value="验证" class="btn">
+        <span id="result"></span>
+        <br>
+
+        <span>密码:</span>
+        <input type="password" name="password" id="pwd">
+
+    </form>
+
+</body>
+
+</html>

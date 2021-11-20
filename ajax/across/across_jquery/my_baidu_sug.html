@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            outline: none;
+        }
+    </style>
+
+    <script src="../js/jquery.min.js"></script>
+
+    <script>
+        window.addEventListener("load", (e) => {
+            const keyword = document.getElementById("keyword");
+            const btn = document.getElementById("btn");
+            const myhead = document.getElementsByTagName("head")[0];
+            const ul = document.querySelector("ul");
+
+            btn.addEventListener("click", () => {
+                $(ul).empty();
+
+                $.ajax({
+                    url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                    data: {
+                        wd: keyword.value
+                    },
+                    success: (result) => {
+                        // console.log(result);
+                        for (let i = 0; i < result.s.length; i++) {
+                            const li = document.createElement("li");
+                            li.innerHTML = result.s[i];
+                            ul.appendChild(li);
+                        }
+                    },
+                    dataType: "jsonp", //使用jQuery来获取跨域的数据，dataType设置为"jsonp"
+                    jsonp: "cb", //key默认是callback
+                    jsonpCallback: "haha" //value默认值是以jQuery开头的字符串，是函数调用的名称
+                });
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <input type="text" id="keyword" placeholder="请输入关键词">
+    <input type="button" id="btn" value="查询">
+    <ul>
+    </ul>
+</body>
+
+</html>

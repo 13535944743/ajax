@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <style type="text/css">
+        #container {
+            width: 400px;
+            min-height: 300px;
+            background-color: lightgreen;
+            margin: auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        #info div:nth-child(1) {
+            margin-top: 20px;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="js/template.js"></script>
+    <script type="text/html" id="tem">
+        {{each dayList as value}}
+        <div>
+            <span>{{value.area}}</span>
+            <ul>
+                <li>日平均温度: {{value.day_air_temperature}}</li>
+                <li>天气状况: {{value.day_weather}} </li>
+                <li>
+                    天气示意图:
+                    <img src={{value.day_weather_pic}} alt="">
+                </li>
+                <li>风向: {{value.day_wind_direction}} </li>
+                <li>风力: {{value.day_wind_power}} </li>
+                <li>日期: {{value.daytime}} </li>
+                <li>晚间温度: {{value.night_temperature}} </li>
+                <li>晚间天气状况: {{value.night_weather}} </li>
+            </ul>
+        </div>
+        {{/each}}
+    </script>
+
+    <script type="text/javascript" src="js/weather.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <input type="text" placeholder="请输入城市名" id="ipt">
+        <input type="button" value="查询" id="query">
+        <div id="info">
+
+        </div>
+</body>
+
+</html>

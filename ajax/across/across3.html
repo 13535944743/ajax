@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            outline: none;
+        }
+    </style>
+
+    <script>
+        function fn(str) {
+            console.log(str);
+        }
+    </script>
+    <!-- <script src="http://www.clz.com/test.php?city=shanghai"></script> -->
+    <script>
+        window.addEventListener("load", () => {
+            const btn = document.getElementById("btn");
+            const city = document.getElementById("city");
+            const myhead = document.querySelector("head");
+
+            let flag = false;
+
+            btn.addEventListener("click", () => {
+                let script = document.createElement("script");
+                script.src = "http://www.clz.com/test.php?city=" + city.value;
+                if (flag) {
+                    myhead.removeChild(myhead.children[myhead.children.length -
+                    1]); //非第一次添加时，先删除第一次添加的script标签
+                }
+                myhead.appendChild(script);
+                flag = true;
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <h2>天气预报</h2>
+    <input type="text" id="city" placeholder="请输入城市名称">
+    <input type="button" id="btn" value="确认">
+</body>
+
+</html>

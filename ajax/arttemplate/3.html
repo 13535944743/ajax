@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="template.js"></script>
+    <script type="text/html" id="test">
+        <ul>
+            {{each arr as value}}
+            <li>{{value}}</li>
+            {{/each}}
+        </ul>
+    </script>
+
+    <script type="text/javascript">
+        window.addEventListener("load", () => {
+            const data = ["文艺", "博客", "电影"];
+            const temp = {};
+            temp.arr = data;
+            const html = template("test", temp);
+            console.log(html);
+            document.getElementById("content").innerHTML = html;
+        })
+    </script>
+</head>
+
+<body>
+    <div id="content">
+    </div>
+</body>
+
+</html>
